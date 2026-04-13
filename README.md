@@ -1,10 +1,10 @@
-#  AI-Based Cyber Attack Detection System
+# AI-Based Cyber Attack Detection System
 
 An intelligent Intrusion Detection System (IDS) built using Machine Learning and rule-based techniques to detect cyber attacks in real time.
 
 ---
 
-## Features
+## 🚀 Features
 
 - Real-time cyber attack detection
 - Machine Learning + rule-based hybrid detection
@@ -33,7 +33,7 @@ An intelligent Intrusion Detection System (IDS) built using Machine Learning and
 
 ## Dataset
 
-The model is trained using the **NSL-KDD dataset**, a benchmark dataset for network intrusion detection.
+The model is trained using the NSL-KDD dataset, a benchmark dataset for network intrusion detection.
 
 ---
 
@@ -42,5 +42,5 @@ The model is trained using the **NSL-KDD dataset**, a benchmark dataset for netw
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/cyber-attack-detection.git
-cd cyber-attack-detection
+git clone https://github.com/arjun23BCE0112/ai-cyber-attack-detection-system.git
+cd ai-cyber-attack-detection-system

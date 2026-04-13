@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cyber Attack Detection System</title>
+
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #eef2f7, #dfe9f3);
+        }
+
+        header {
+            background: linear-gradient(135deg, #1f4037, #99f2c8);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .left { width: 35%; }
+        .right { width: 65%; }
+
+        label { display: block; margin-top: 10px; }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            width: 100%;
+            background: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .preset-btns button {
+            background: #2ecc71;
+        }
+
+        .result-box {
+            padding: 15px;
+            margin-top: 10px;
+            border-left: 5px solid #ccc;
+        }
+
+        .result-low { border-color: #2ecc71; color: #2ecc71; }
+        .result-medium { border-color: #f39c12; color: #f39c12; }
+        .result-high { border-color: #e74c3c; color: #e74c3c; }
+        .result-critical { border-color: #8e0000; color: #8e0000; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th {
+            background: #34495e;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .low { background: #eafaf1; }
+        .medium { background: #fef5e7; }
+        .high { background: #fdecea; }
+        .critical { background: #f8d7da; }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>AI Cyber Attack Detection System</h2>
+</header>
+
+<div class="container">
+
+<div class="left card">
+
+    <h3>Input Data</h3>
+
+    <label>Source IP</label>
+    <input id="src_ip" value="192.168.1.10">
+
+    <label>Protocol</label>
+    <select id="protocol_type">
+        <option value="tcp">TCP</option>
+        <option value="udp">UDP</option>
+        <option value="icmp">ICMP</option>
+    </select>
+
+    <label>Service</label>
+    <select id="service">
+        <option value="http">HTTP</option>
+        <option value="ftp">FTP</option>
+        <option value="ssh">SSH</option>
+    </select>
+
+    <label>Flag</label>
+    <select id="flag">
+        <option value="SF">SF</option>
+        <option value="S0">S0</option>
+        <option value="REJ">REJ</option>
+    </select>
+
+    <label>Duration</label>
+    <input id="duration" value="2">
+
+    <label>Source Bytes</label>
+    <input id="src_bytes" value="200">
+
+    <label>Destination Bytes</label>
+    <input id="dst_bytes" value="5000">
+
+    <label>Failed Logins</label>
+    <input id="num_failed_logins" value="0">
+
+    <label>Connection Count</label>
+    <input id="count" value="1">
+
+    <label>Error Rate</label>
+    <input id="serror_rate" value="0">
+
+    <label>Root Shell</label>
+    <input id="root_shell" value="0">
+
+    <button onclick="detect()">Detect Attack</button>
+
+    <div class="preset-btns">
+        <button onclick="setNormal()">Normal</button>
+        <button onclick="setDoS()">DoS</button>
+        <button onclick="setBrute()">Brute Force</button>
+        <button onclick="setProbe()">Probe</button>
+        <button onclick="setU2R()">U2R</button>
+    </div>
+
+</div>
+
+<div class="right card">
+
+    <h3>Detection Result</h3>
+    <div class="result-box" id="result">No data yet</div>
+
+    <h3>Live Alerts</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>IP</th>
+                <th>Type</th>
+                <th>Severity</th>
+                <th>Probability</th>
+            </tr>
+        </thead>
+        <tbody id="alerts"></tbody>
+    </table>
+
+</div>
+
+</div>
+
+<script>
+
+function setNormal(){
+    num_failed_logins.value = 0;
+    count.value = 1;
+    serror_rate.value = 0;
+    root_shell.value = 0;
+}
+
+function setDoS(){
+    count.value = 400;
+    serror_rate.value = 1;
+}
+
+function setBrute(){
+    num_failed_logins.value = 8;
+}
+
+function setProbe(){
+    count.value = 80;
+    duration.value = 1;
+}
+
+function setU2R(){
+    root_shell.value = 1;
+}
+
+async function detect() {
+
+    let box = document.getElementById("result");
+    box.innerHTML = "Analyzing...";
+    box.className = "result-box";
+
+    const res = await fetch("/api/detect", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            src_ip: src_ip.value,
+            protocol_type: protocol_type.value,
+            service: service.value,
+            flag: flag.value,
+            duration: duration.value,
+            src_bytes: src_bytes.value,
+            dst_bytes: dst_bytes.value,
+            num_failed_logins: num_failed_logins.value,
+            count: count.value,
+            serror_rate: serror_rate.value,
+            root_shell: root_shell.value
+        })
+    });
+
+    const result = await res.json();
+
+    const sev = result.severity.toLowerCase();
+
+    if (result.is_attack) {
+        box.className = "result-box result-" + sev;
+        box.innerHTML = `
+            <b>ATTACK DETECTED</b><br>
+            ${result.attack_type}<br>
+            Severity: ${result.severity}<br>
+            Probability: ${(result.probability*100).toFixed(2)}%
+        `;
+    } else {
+        box.className = "result-box result-low";
+        box.innerHTML = `
+            <b>NORMAL TRAFFIC</b><br>
+            Probability: ${(result.probability*100).toFixed(2)}%
+        `;
+    }
+}
+
+setInterval(async () => {
+    const res = await fetch("/api/live_alerts");
+    const data = await res.json();
+
+    let table = document.getElementById("alerts");
+    table.innerHTML = "";
+
+    data.forEach(a => {
+        let sev = a.severity.toLowerCase();
+
+        table.innerHTML += `
+        <tr class="${sev}">
+            <td>${a.src_ip}</td>
+            <td>${a.attack_type}</td>
+            <td>${a.severity}</td>
+            <td>${(a.probability*100).toFixed(2)}%</td>
+        </tr>`;
+    });
+
+}, 2000);
+
+</script>
+
+</body>
+</html>

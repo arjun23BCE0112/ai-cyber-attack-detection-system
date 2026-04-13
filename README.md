@@ -4,7 +4,7 @@ An intelligent Intrusion Detection System (IDS) built using Machine Learning and
 
 ---
 
-## 🚀 Features
+## Features
 
 - Real-time cyber attack detection
 - Machine Learning + rule-based hybrid detection

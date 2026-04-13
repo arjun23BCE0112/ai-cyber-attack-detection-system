@@ -1,46 +1,74 @@
-# AI-Based Cyber Attack Detection System
+# Cyber Attack Detection System
 
-An intelligent Intrusion Detection System (IDS) built using Machine Learning and rule-based techniques to detect cyber attacks in real time.
-
----
-
-## Features
-
-- Real-time cyber attack detection
-- Machine Learning + rule-based hybrid detection
-- Detection of multiple attack types:
-  - DoS Attack
-  - Brute Force (R2L)
-  - Probe / Port Scan
-  - Privilege Escalation (U2R)
-- Live alert system with automatic updates
-- Severity classification (LOW, MEDIUM, HIGH, CRITICAL)
-- Interactive web interface (Flask + HTML)
-- Preset buttons to simulate attacks
-- Color-coded alerts for better visualization
+A simple web-based system that detects cyber attacks using Machine Learning and rule-based logic.
 
 ---
 
-## Technologies Used
+## What this project does
 
-- Python
-- Flask
-- Scikit-learn
-- Pandas
-- HTML / CSS / JavaScript
-
----
-
-## Dataset
-
-The model is trained using the NSL-KDD dataset, a benchmark dataset for network intrusion detection.
+- Detects different types of cyber attacks  
+- Shows results in real-time  
+- Displays severity (LOW / MEDIUM / HIGH / CRITICAL)  
+- Uses a web interface to input data  
+- Provides preset buttons to simulate attacks  
 
 ---
 
-## Installation & Setup
+## How to run
 
-### 1. Clone the repository
+1. Clone the repository  
 
-```bash
-git clone https://github.com/arjun23BCE0112/ai-cyber-attack-detection-system.git
-cd ai-cyber-attack-detection-system
+git clone https://github.com/arjun23BCE0112/ai-cyber-attack-detection-system.git  
+cd ai-cyber-attack-detection-system  
+
+2. Install dependencies  
+
+pip install -r requirements.txt  
+
+3. Run the app  
+
+python app.py  
+
+4. Open in browser  
+
+http://127.0.0.1:5000  
+
+---
+
+## Technologies used
+
+- Python  
+- Flask  
+- Scikit-learn  
+- Pandas  
+- HTML / CSS / JavaScript  
+
+---
+
+## Attacks detected
+
+- DoS Attack  
+- Brute Force  
+- Probe / Port Scan  
+- Privilege Escalation  
+
+---
+
+## Project structure
+
+app.py  
+requirements.txt  
+templates/index.html  
+saved_models/  
+
+---
+
+## Author
+
+Arjun Soni  
+
+---
+
+## License
+
+MIT License  

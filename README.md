@@ -71,4 +71,8 @@ Arjun Soni
 
 ## License
 
+<<<<<<< HEAD
 MIT License  
+=======
+MIT License  
+>>>>>>> 802f4e9413c9047e206241bc6fe5366057470051

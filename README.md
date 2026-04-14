@@ -63,9 +63,11 @@ saved_models/
 
 ---
 
-## Author
+## Authors
 
-Arjun Soni  
+- Arjun Soni
+- Astha Kalita
+- Anwesha Maitin 
 
 ---
 
